@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model avaliacao {
+  nota       Int
+  usuario_id Int
+  produto_id Int
+  produto    produto @relation(fields: [produto_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_avaliacao_produto")
+  usuario    usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_avaliacao_usuario")
+
+  @@id([usuario_id, produto_id])
+  @@index([produto_id], map: "fk_avaliacao_produto_idx")
+  @@index([usuario_id], map: "fk_avaliacao_usuario_idx")
+}
+
+model carrinho {
+  id            Int             @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  total         Float           @default(0) @db.Float
+  usuario_id    Int             @unique(map: "usuario_id_UNIQUE")
+  usuario       usuario         @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_carrinho_usuario")
+  item_carrinho item_carrinho[]
+
+  @@index([usuario_id], map: "fk_carrinho_usuario_idx")
+}
+
+model compra {
+  id               Int               @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  dataRegistro     DateTime          @db.Date
+  statusCompra     String            @default("Aguardando Pagamento") @db.VarChar(45)
+  total            Float             @db.Float
+  usuario_id       Int
+  usuario          usuario           @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_compra_usuario")
+  endereco_entrega endereco_entrega?
+  item_compra      item_compra[]
+
+  @@index([usuario_id], map: "fk_compra_usuario_idx")
+}
+
+model endereco {
+  id          Int     @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  logradouro  String  @default("-") @db.VarChar(100)
+  numero      String  @default("-") @db.VarChar(5)
+  cidade      String  @default("-") @db.VarChar(100)
+  uf          String  @default("-") @db.VarChar(2)
+  cep         String  @default("-") @db.VarChar(9)
+  complemento String? @default("-") @db.VarChar(100)
+  usuario_id  Int
+  usuario     usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_endereco_usuario")
+
+  @@index([usuario_id], map: "fk_endereco_usuario_idx")
+}
+
+model endereco_entrega {
+  logradouro  String  @db.VarChar(100)
+  numero      String  @db.VarChar(5)
+  cidade      String  @db.VarChar(100)
+  uf          String  @db.VarChar(2)
+  cep         String  @db.VarChar(9)
+  complemento String? @db.VarChar(100)
+  compra_id   Int     @id @unique(map: "compra_id_UNIQUE")
+  compra      compra  @relation(fields: [compra_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_endereco_entrega_compra")
+}
+
+model item_carrinho {
+  id          Int      @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  carrinho_id Int
+  produto_id  Int
+  quantidade  Int      @default(1)
+  total       Float    @default(0) @db.Float
+  carrinho    carrinho @relation(fields: [carrinho_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_item_carrinho")
+  produto     produto  @relation(fields: [produto_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_item_carrinho_produto")
+
+  @@index([carrinho_id], map: "fk_item_carrinho_carrinho_idx")
+  @@index([produto_id], map: "fk_item_carrinho_produto_idx")
+}
+
+model item_compra {
+  id         Int     @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  quantidade Int
+  compra_id  Int
+  produto_id Int
+  total      Float   @default(0) @db.Float
+  compra     compra  @relation(fields: [compra_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_item_compra_compra")
+  produto    produto @relation(fields: [produto_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_item_compra_produto")
+
+  @@index([compra_id], map: "fk_item_compra_idx")
+  @@index([produto_id], map: "fk_item_compra_produto_idx")
+}
+
+model produto {
+  id              Int             @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  nome            String          @db.VarChar(100)
+  descricao       String          @db.VarChar(255)
+  categoria       String          @db.VarChar(45)
+  preco           Float           @default(0) @db.Float
+  desconto        Float           @default(0) @db.Float
+  precoFinal      Float           @default(0) @db.Float
+  caracteristicas String          @db.VarChar(255)
+  foto            String          @db.MediumText
+  disponibilidade Int             @default(1) @db.TinyInt
+  avaliacaoMedia  Float           @default(0) @db.Float
+  avaliacaoTotal  Int             @default(0)
+  quantidade      Int             @default(0)
+  avaliacao       avaliacao[]
+  item_carrinho   item_carrinho[]
+  item_compra     item_compra[]
+}
+
+model usuario {
+  id             Int         @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  role           String      @default("client") @db.VarChar(10)
+  nome           String      @db.VarChar(100)
+  email          String      @unique(map: "email_UNIQUE") @db.VarChar(100)
+  senha          String      @db.VarChar(100)
+  foto           String?     @db.MediumText
+  cpf            String?     @unique(map: "cpf_UNIQUE") @db.VarChar(11)
+  telefone       String?     @db.VarChar(15)
+  dataNascimento DateTime?   @db.Date
+  habilitado     Int         @default(1) @db.TinyInt
+  avaliacao      avaliacao[]
+  carrinho       carrinho?
+  compra         compra[]
+  endereco       endereco[]
+}

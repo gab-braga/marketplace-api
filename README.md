@@ -27,47 +27,47 @@ uma presença online, essa API oferece recursos avançados e uma estrutura robus
 
 ### Área Pública
 * GET `/public/products`,
-* GET `/public/products/${id}`,
-* GET `/public/products/category/${category}`,
-* GET `/public/products/search/${name}`,
+* GET `/public/products/{id}`,
+* GET `/public/products/category/{category}`,
+* GET `/public/products/search/{name}`,
 
 ### Área de Perfil
-* GET `/client/profile/${id}`,
-* GET `/client/profile/${id}/address`,
-* PUT `/client/profile/${id}`,
-* PUT `/client/profile/${id}/address`,
-* PUT `/client/profile/${id}/password`,
-* PUT `/client/profile/${id}/photo`,
+* GET `/client/profile/{id}`,
+* GET `/client/profile/{id}/address`,
+* PUT `/client/profile/{id}`,
+* PUT `/client/profile/{id}/address`,
+* PUT `/client/profile/{id}/password`,
+* PUT `/client/profile/{id}/photo`,
 
 ### Carrinho de Compras
-* GET `/client/cart/${id}`,
-* POST `/client/cart/${id}/add`,
-* PUT `/client/cart/${id}/item`,
-* POST `/client/cart/${id}/finish`,
+* GET `/client/cart/{id}`,
+* POST `/client/cart/{id}/add`,
+* PUT `/client/cart/{id}/item`,
+* POST `/client/cart/{id}/finish`,
 
 ### Pedidos
-* GET `/client/orders/${id}`,
-* GET `/client/orders/${idU}/products/${idP}`,
-* GET `/client/orders/purchase/${id}`,
-* POST `/client/orders/${id}/evaluate`,
+* GET `/client/orders/{id}`,
+* GET `/client/orders/{idU}/products/{idP}`,
+* GET `/client/orders/purchase/{id}`,
+* POST `/client/orders/{id}/evaluate`,
 
 ### Gestão de Usuários
 * GET `/admin/users`,
-* GET `/admin/users/${id}`,
-* PUT `/admin/users/${id}/enable`,
-* PUT `/admin/users/${id}/disable`,
+* GET `/admin/users/{id}`,
+* PUT `/admin/users/{id}/enable`,
+* PUT `/admin/users/{id}/disable`,
 
 ### Gestão de Produtos
 * GET `/admin/products`,
-* GET `/admin/products/${id}`,
+* GET `/admin/products/{id}`,
 * POST `/admin/products`,
-* PUT `/admin/products/${id}`,
+* PUT `/admin/products/{id}`,
 
 ### Gestão de Vendas
 * GET `/admin/purchases`,
-* GET `/admin/purchases/${id}`,
-* GET `/admin/purchases/${id}/items`,
-* PUT `/admin/purchases/${id}/status`,
+* GET `/admin/purchases/{id}`,
+* GET `/admin/purchases/{id}/items`,
+* PUT `/admin/purchases/{id}/status`,
 
 ## Como Usar
  1. Clone o repositório: `git clone https://github.com/F-Gabriel-Braga/marketplace-api`

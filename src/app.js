@@ -23,6 +23,10 @@ app.use(authRouter);
 import { clientRouter } from "./routes/client.js";
 app.use(clientRouter);
 
+// Rotas administrativas
+import { adminRouter } from "./routes/admin.js";
+app.use(adminRouter);
+
 // Escuta do servidor
 app.listen(8080, async () => {
   console.log("Server running in port 8080.");

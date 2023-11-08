@@ -48,6 +48,7 @@ publicRouter.get("/public/products", async (req, res) => {
 publicRouter.get("/public/products/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
+
     if (isNaN(id)) {
       return res.status(400).json({ message: "O ID deve ser um número." });
     }
@@ -67,6 +68,7 @@ publicRouter.get("/public/products/:id", async (req, res) => {
 publicRouter.get("/public/products/category/:category", async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 60;
+
     const { category } = req.params;
 
     const products = await prisma.produto.findMany({

@@ -19,6 +19,10 @@ app.use(publicRouter);
 import { authRouter } from "./routes/auth.js";
 app.use(authRouter);
 
+// Rotas cliente
+import { clientRouter } from "./routes/client.js";
+app.use(clientRouter);
+
 // Escuta do servidor
 app.listen(8080, async () => {
   console.log("Server running in port 8080.");

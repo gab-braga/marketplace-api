@@ -15,6 +15,10 @@ app.use(express.json({ limit: "50mb" }));
 import { publicRouter } from "./routes/public.js";
 app.use(publicRouter);
 
+// Rotas autenticação e autorização
+import { authRouter } from "./routes/auth.js";
+app.use(authRouter);
+
 // Escuta do servidor
 app.listen(8080, async () => {
   console.log("Server running in port 8080.");

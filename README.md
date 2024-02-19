@@ -20,6 +20,9 @@ uma presença online, essa API oferece recursos avançados e uma estrutura robus
 * Bcrypt
 * MySQL
 
+## DER
+![modelo](https://github.com/F-Gabriel-Braga/marketplace-api/assets/66652642/951edae9-6476-4fc4-ae95-c884bcf4bf44)
+
 ## Endpoints
 ### Autenticação e Cadastro
 * POST `/auth/login`,

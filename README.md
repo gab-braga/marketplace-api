@@ -21,7 +21,7 @@ uma presença online, essa API oferece recursos avançados e uma estrutura robus
 * MySQL
 
 ## DER
-![modelo](https://github.com/F-Gabriel-Braga/marketplace-api/assets/66652642/951edae9-6476-4fc4-ae95-c884bcf4bf44)
+![modelo](https://github.com/gab-braga/marketplace-api/assets/66652642/951edae9-6476-4fc4-ae95-c884bcf4bf44)
 
 ## Endpoints
 ### Autenticação e Cadastro
@@ -73,7 +73,7 @@ uma presença online, essa API oferece recursos avançados e uma estrutura robus
 * PUT `/admin/purchases/{id}/status`,
 
 ## Como Usar
- 1. Clone o repositório: `git clone https://github.com/F-Gabriel-Braga/marketplace-api`
+ 1. Clone o repositório: `git clone https://github.com/gab-braga/marketplace-api`
  2. Acesse o diretório do projeto: `cd marketplace-api`
  3. Instale as dependências: `npm install`
  4. Copie e cole o arquivo `.env` e configure as variáveis
